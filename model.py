@@ -1,28 +1,28 @@
 
-# import os
-# from langchain.chat_models import init_chat_model
-# from langchain_ollama import ChatOllama
+import os
+from langchain.chat_models import init_chat_model
+from langchain_ollama import ChatOllama
 
 
 
-# key=os.environ.get("GROQ_API_KEY")
-# model_provider="groq"
-# model_name="deepseek-r1-distill-llama-70b"
+key=os.environ.get("GROQ_API_KEY")
+model_provider="groq"
+model_name="deepseek-r1-distill-llama-70b"
 
 
-# def model_type(model_name,key,model_provider):
-#     if not key:
-#         raise ValueError("API KEY is missing. Please set it in your environment variables.")
-#     if not model_name:
-#         raise ValueError("model name is missing")
+def model_type(model_name,key,model_provider):
+    if not key:
+        raise ValueError("API KEY is missing. Please set it in your environment variables.")
+    if not model_name:
+        raise ValueError("model name is missing")
     
-#     if not model_provider:
-#         raise ValueError("model provider is missing")
-#     os.environ["GROQ_API_KEY"]=key
-#     model = init_chat_model(model_name, model_provider=model_provider)
-#     return model
+    if not model_provider:
+        raise ValueError("model provider is missing")
+    os.environ["GROQ_API_KEY"]=key
+    model = init_chat_model(model_name, model_provider=model_provider)
+    return model
 
-# llm=model_type(model_name,key,model_provider)
+llm=model_type(model_name,key,model_provider)
 
 # import os
 # import time
