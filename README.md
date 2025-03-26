@@ -1,29 +1,53 @@
-# Communication_trainer
 
-SetUp instruction 
+# Communication Trainer
 
-This is a simple chat bot that trains can train people in imprompt,storytelling and conflict resolution 
-to run this code you need .env file and use model.py file to acess the env variables and initalize a model
-since it is the single point for production of llm thus making choosing llm would be easy now comming to the interface 
-i have used a stream lit interface 
-![alt text]({127970D4-AC1F-463B-A2FE-7C544ECE12A0}.png)
-as you can see in the image the left side you have to select the kind of input you will be choosing default is audio input since its stream lit please delete every audio after recording your audio
-set up is simple as that
+## Overview
 
+Communication Trainer is a multi-agent chatbot designed to help users improve their impromptu speaking, storytelling, and conflict resolution skills. It provides AI-driven feedback and supports both audio and text input using a Streamlit interface.
 
-Example of usage :
+## Setup Instructions
+### Prerequisites:
 
 
 
-it can be as simple as possible because 
-all you have to do is start with hello the chat bot will give you and intorduction to the model 
-then you can ask for topics based on a preference here is an entire conversation from hello to a storyevalutaion
-user :"hello"
-assistant:"Welcome! I'm here to help you enhance your storytelling, conflict resolution, and spontaneous speaking skills. Let's get started—would you like to craft a story, resolve a conflict, or speak on a topic?"
 
-user:"could you give me a topic for a story telling"
-assistante:"Great! Let’s craft a tale together. Please narrate a short story about the mysterious lighthouse, focusing on its secrets and the guardian of its light. Keep it under 250 words."
-user:"The Guardian of the Lighthouse
+
+- A `.env` file to store configuration variables.
+- Ensure you have `model.py` , which loads the environment variables and initializes the AI model.
+- Install dependencies using:
+```bash
+  pip install -r requirements.txt
+```
+### Running the Application    
+To start the chatbot, simply run:
+```bash
+  streamlit run app.py
+```
+On the left panel, select your input type (default: audio).
+        
+    Note: Since this is a Streamlit app, delete every recorded audio file after use to free storage.
+
+
+
+
+
+## Usage Example
+![alt text]({7BAFBF05-9214-4E90-8AB3-848D9F4CEE2C}.png)
+
+### Sample Conversation
+User: `Hello`
+
+Assistant:
+"Great! Please narrate a short story about a mysterious lighthouse, focusing on its secrets and the guardian of its light. Keep it under 250 words."
+
+User: `Could you give me a topic for storytelling?`
+
+Assistant:
+
+"Great! Please narrate a short story about a mysterious lighthouse, focusing on its secrets and the guardian of its light. Keep it under 250 words."
+
+User:`The Guardian of the Lighthouse`
+```bash
 For over a hundred years, the Black Hollow Lighthouse had stood on the jagged cliffs, its beam slicing through the endless fog. Ships that followed its light were guided safely home, but those who strayed met a fate whispered only in fearful legends.
 
 No one knew much about Elias Thorne, the lighthouse keeper. He rarely spoke, his silhouette visible only through the flickering lantern light. Some said he was the last of his kind, bound to the lighthouse by a curse far older than the sea itself.
@@ -40,8 +64,11 @@ Outside, the waves crashed violently, and the light flickered. If it went out…
 
 Would Clara run, or would she help him keep the lighthouse burning?
 
-The choice was no longer hers alone."
-assistant:"Analysis and Critique of "The Guardian of the Lighthouse"
+The choice was no longer hers alone.
+```
+Assistant:
+
+Analysis and Critique of "The Guardian of the Lighthouse"
 
 Narrative Flow:
 
@@ -65,16 +92,20 @@ Setting Expansion: Expanding on the lighthouse's history and surroundings could 
 Spiritual Element Development: Clarifying the rules of Emily's presence as a spirit might add depth and intrigue to the supernatural aspect of the story.
 This analysis highlights the story's strengths and offers constructive suggestions to further enhance its impact."
 
-so this can be done using both the audio and text input 
 
+## Design Decisions
+The chatbot is built using an agentic AI architecture to optimize performance and scalability. It consists of:
 
-Design decisions:
+  - Supervisor Agent: Routes queries to the appropriate module.
 
-the design is a multiagent chatbot  i have tried to decrease the maximum no of steps to conserve the tokens ans also to keep it simple but scalabe all my code is few more lines from becomming a completey personalble and scalable application 
-the reason why i went wiht agentic arcitecture is because i belive that is the future and scalling will be seamless making it effiecent and all the redirection and selection of the right model will be controlled by the ai that is the main reason why i used agentic ai so there are four modules-
--impormptu for handling imprrompty
--storytelling for handling storytelling
--conflict for conflict resolution 
--general for handling genral query
-the supervisor agent redirects to the right agent
-and as the name of these agents are given to the modules and also app.py contains the wrapper application as previustly mentioned model.py has the model this is created only for easy switching of the model for easy intergration of Ai based on users preference chat history json kepps track of the  history 
+  - Four Specialized Agents:
+
+      - Impromptu – Handles impromptu speaking exercises.
+
+      - Storytelling – Evaluates and critiques storytelling.
+
+      - Conflict – Provides guidance on conflict resolution.
+
+      - General – Manages other user queries.
+
+This modular design allows efficient token usage, seamless model switching, and future scalability.
