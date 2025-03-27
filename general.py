@@ -62,7 +62,7 @@ def llm_call(state:MessagesState):
 
 
 def tool_node(state:dict):
-    """Perform tools call"""
+    """Performs tools call"""
     result=[]
     for tool_call in state['messages'][-1].tool_calls:
         tools=tools_by_name[tool_call['name']]

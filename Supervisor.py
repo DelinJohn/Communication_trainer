@@ -5,28 +5,11 @@ from langgraph.types import Command
 
 
 
-
-
-
-
-
 from Storytelling import story_agent
 from conflict import conflict_agent
 from improptu import impromptu_agent
 from general import general_agent
 from model import llm
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -95,6 +78,8 @@ class State(MessagesState):
 
 
 def supervisor_node(state:State) -> Command[Literal["story_agent","conflict_agent","impromptu_agent","general_agent"]]       :
+    """This is the Supervisor Node responsible for redirecting the query to the right agent"""
+
     messages=[
          {"role":"system","content":system_prompt}
     ]   + state['messages']  
@@ -107,6 +92,7 @@ def supervisor_node(state:State) -> Command[Literal["story_agent","conflict_agen
 
 
 def story_node(state: State) -> Command[Literal[END]]: # type: ignore
+    """ This is the Agent handles the Story """
     result = story_agent.invoke(state)
     return Command(
         update={
@@ -118,6 +104,7 @@ def story_node(state: State) -> Command[Literal[END]]: # type: ignore
     )    
 
 def impromptu(state: State) -> Command[Literal[END]]: # type: ignore
+    """ This is the Agent handles Impromptu speaking"""
     result = impromptu_agent.invoke(state)
     return Command(
         update={
@@ -129,6 +116,8 @@ def impromptu(state: State) -> Command[Literal[END]]: # type: ignore
     )   
 
 def conflict(state: State) -> Command[Literal[END]]: # type: ignore
+    """ This is the Agent handles conflict resolution"""
+
     result = conflict_agent.invoke(state)
     return Command(
         update={
@@ -140,6 +129,7 @@ def conflict(state: State) -> Command[Literal[END]]: # type: ignore
     ) 
 
 def general(state:State)-> Command[Literal[END]]: # type: ignore
+    """ This is the Agent handles general topics resolution"""
       # Extract the last user message
     result = general_agent.invoke(state) 
     return Command(

@@ -36,15 +36,7 @@ def llm_call(state:MessagesState):
     return{
         'messages':[
             llm_with_tools.invoke(
-                [SystemMessage(content="""\
-You are a rigorous impromptu speaking coach. Analyze user responses in 3 steps:
-
-1. **Structural Analysis** - Use 'analyze_speech_structure' to examine:
-   - Introduction/Body/Conclusion flow
-   - Logical transitions between ideas
-   - Overall organizational effectiveness
-\
-""")] 
+                [SystemMessage(content="Use the tool analyze_speech_structure to analyze the impromptu speech ")] 
                                + state['messages']
 
             )

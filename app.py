@@ -1,5 +1,5 @@
+from tenacity import retry, stop_after_attempt, wait_fixed
 from typing import List, Dict, Any
-from model import llm
 from  datetime import datetime
 from Supervisor import app
 import streamlit as st
@@ -9,6 +9,7 @@ import json
 import io
 
 @st.cache_resource
+@retry(stop=stop_after_attempt(2), wait=wait_fixed(1))
 def load_whiper_model():
     return whisper.load_model('small',device='cuda')
 
@@ -44,6 +45,18 @@ for msg in st.session_state.history:
         if "agent" in msg:
             st.caption(f"Handled by: {msg['agent']}")
 
+st.title('Communication Trainer')
+
+with st.sidebar.expander("📘 **Welcome to Communication Coach!** (Click to view steps)"):
+        
+        st.markdown("""
+        **Welcome to Communication Coach!**  
+        Follow these steps to improve your skills:
+        
+        1. Choose input mode (Voice/Text)
+        2. Start with a hello.
+        3. You can enter the topic you want to upskill in the chat box.           
+        """)
 
 
 
@@ -96,7 +109,7 @@ if prompt:=selection[input_mode]:
     })
 
     # Append to JSON file (without overwriting)
-    with open("chat_history.json", "a") as file:
+    with open("history.json", "a") as file:
         json_entry = json.dumps({
             "user_query": prompt,
             "assistant_response": response_content,
