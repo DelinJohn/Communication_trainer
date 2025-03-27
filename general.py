@@ -74,12 +74,11 @@ def tool_node(state:dict):
 agent_builder =StateGraph(MessagesState)
 
 
-# Add Nodes
+
 agent_builder.add_node("llm_call", llm_call)
 agent_builder.add_node("environment", tool_node)
 
 
-# Add edges to connect nodes
 agent_builder.add_edge(START, "llm_call")
 agent_builder.add_edge("llm_call","environment" )
 agent_builder.add_edge("environment", END)
