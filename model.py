@@ -9,7 +9,7 @@ load_dotenv()
 key=os.environ.get("OPENAI_API_KEY")
 model_provider=os.environ.get('GPT_model_provider')
 model_name=os.environ.get('GPT_model')
-print(model_provider)
+
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
 def model_type(model_name,key,model_provider):

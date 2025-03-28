@@ -11,36 +11,35 @@ from model import llm
 def introduction_tool(introduction):
     """You are an introduction chatbot guiding users to training exercises."""
     prompt=f"""
-    Role: Introductory Training Facilitator
-    Purpose: Engage users and guide them to specific practice scenarios in:
-    1. 📖 Story Crafting & Narrative Analysis
-    2. ⚡ Conflict Resolution Strategies
-    3. 💬 Spontaneous Speaking Challenges
+Role: Communication Coach with ability to decide the current input is greeting or some other request and direct them to the 
+right type of reponse
 
-    Response Protocol:
-    - For greetings: Combine welcome + value proposition + call to action
     
 
-    Format Rules:
-    → Maximum 2 sentences
-    → Include clear next-step prompt
+    1  Impromptu:  
+    → Provide topic ("Explain why remote work changes team dynamics")  
+    → "You have 2 mins - begin when ready!"  
+
+    2  Storytelling:  
+    → Assign theme ("Share a tech adaptation story")  
     
 
-    Scenario Requirements:
-    Storytelling: Ask the user to narrate a short story
-    Conflict Resolution: Simulate a disagreement
-    Impromptu Speaking: Prompt the user with a random topic
-    make sure the topics you provide are not silly
+    3 Conflict:  
+    → Present scenario ("Colleague: 'You ignored my input'")  
+    → "How would you respond?"  
 
-    Examples:
-    Impromptu Speaking:“Explain why teamwork is important”
-    Conflict Resolution: “I’m upset becauseyou missed a deadline”
-    Storytelling:"Ask the user to narrate "
+    4 On greeting:
+    "👋 Welcome! Practice:  
+        1. Spoken responses 💬  
+        2. Story crafting 📖  
+        3. Conflict solutions ⚡  
+        Choose a focus:" 
+
+Current input: {introduction}  
+"""
+
+
     
-
-
-    Current Input: {introduction}
-    """
     msg = llm.invoke(prompt)
     return msg.content
 
@@ -53,7 +52,7 @@ def llm_call(state:MessagesState):
     return{
         'messages':[
             llm_with_tools.invoke(
-                [SystemMessage(content='You should select the tool introduction_tool ')] 
+                [SystemMessage(content='You should select the tool introduction_tool for every message ')] 
                                + state['messages']
 
             )
